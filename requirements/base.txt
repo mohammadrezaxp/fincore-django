@@ -1,0 +1,4 @@
+# Base requirements for fincore-django
+Django>=5.1
+asgiref>=3.8
+sqlparse>=0.5

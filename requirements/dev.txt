@@ -1,0 +1,13 @@
+# Development requirements for fincore-django
+# Extends base + dev tools
+Django>=5.1
+asgiref>=3.8
+sqlparse>=0.5
+# Dev tools
+black>=24.0
+isort>=5.12
+flake8>=7.0
+pytest>=8.3
+pytest-django>=2024.2
+crispy-forms>=2024.2
+django-debug-toolbar>=4.5

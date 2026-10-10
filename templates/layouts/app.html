@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html' %}
+{% block layout %}
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="{% url 'home' %}"><span class="brand-mark">✦</span> FinCore<span class="brand-dot">.</span></a>
+    <p class="sidebar-label" data-i18n="workspace">WORKSPACE</p>
+    <nav class="side-nav" aria-label="Dashboard navigation">
+      <a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"><span>▦</span><span data-i18n="dashboard">Dashboard</span></a>
+      <a href="{% url 'wallet' %}" class="{% if request.resolver_match.url_name == 'wallet' %}active{% endif %}"><span>◈</span><span data-i18n="wallet">My wallet</span></a>
+      <a href="{% url 'transfer' %}" class="{% if request.resolver_match.url_name == 'transfer' %}active{% endif %}"><span>➚</span><span data-i18n="transfer">Send money</span></a>
+      <a href="{% url 'transactions' %}" class="{% if request.resolver_match.url_name == 'transactions' %}active{% endif %}"><span>⇄</span><span data-i18n="transactions">Transactions</span></a>
+      <a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}"><span>◉</span><span data-i18n="profile">My profile</span></a>
+    </nav>
+    <div class="sidebar-bottom"><div class="demo-pill">● <span data-i18n="demoMode">Demo mode</span></div><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="logout-btn" type="submit">↪ <span data-i18n="logout">Log out</span></button></form></div>
+  </aside>
+  <div class="app-main">
+    <header class="app-header"><div class="app-header-left"><a class="mobile-brand brand" href="{% url 'home' %}">✦ FinCore.</a><span class="header-greeting" data-i18n="welcome">Welcome back</span>, <strong>{{ user.username }}</strong> <span class="wave">✳</span></div><div class="header-right"><div class="lang-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">🇺🇸 EN</button><button type="button" data-lang="fa" aria-pressed="false">🇮🇷 FA</button></div><a class="avatar" href="{% url 'profile' %}" aria-label="Profile">{{ user.username|slice:':1'|upper }}</a></div></header>
+    <nav class="mobile-nav" aria-label="Mobile navigation"><a href="{% url 'dashboard' %}" data-i18n="dashboard">Dashboard</a><a href="{% url 'wallet' %}" data-i18n="wallet">Wallet</a><a href="{% url 'transfer' %}" data-i18n="transfer">Transfer</a><a href="{% url 'transactions' %}" data-i18n="transactions">History</a><a href="{% url 'profile' %}" data-i18n="profile">Profile</a></nav>
+    <main class="content-wrap">{% if messages %}{% for message in messages %}<div class="flash">{{ message }}</div>{% endfor %}{% endif %}{% block content %}{% endblock %}</main>
+  </div>
+</div>
+{% endblock %}
