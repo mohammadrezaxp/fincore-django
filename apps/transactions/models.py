@@ -1,3 +1,4 @@
+from apps.wallets.models import Wallet
 """Transactions app models: Double-entry ledger."""
 import uuid
 from decimal import Decimal
@@ -77,3 +78,13 @@ class LedgerEntry(models.Model):
 
     def __str__(self):
         return f"{self.entry_type}: {self.amount} {self.currency} on {self.account.name}"
+
+class TransferRecord(models.Model):
+    idempotency_key = models.UUIDField(unique=True)
+    sender_wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name='sent_transfers')
+    recipient_wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name='received_transfers')
+    amount = models.DecimalField(max_digits=12, decimal_places=2)
+    currency = models.CharField(max_length=3, default='USD')
+    ledger_transaction = models.ForeignKey(LedgerTransaction, on_delete=models.CASCADE)
+    note = models.CharField(max_length=255, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
