@@ -1,38 +1,30 @@
-
-# Python
-__pycache__/
 *.py[cod]
-*.so
-.pytest_cache/
-.mypy_cache/
-.coverage
-htmlcov/
-
-# Django
+*$py.class
 db.sqlite3
-db.sqlite3-journal
-*.log
-logs/
 media/
-staticfiles/
-
-# Virtual environments
-.venv/
-venv/
-env/
-
-# Environment variables
 .env
-.env.*
-!.env.example
-
-# IDE
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.installed.cfg
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 .idea/
 .vscode/
-*.iml
 *.swp
 *.swo
-
-# Temporary project files
-structure.txt
-structure-clean.txt
+.DS_Store

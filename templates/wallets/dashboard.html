@@ -1,3 +1,56 @@
 {% extends 'layouts/app.html' %}
 {% block title %}Dashboard{% endblock %}
-{% block content %}<div class="page-heading"><div><div class="eyebrow" data-i18n="overview">OVERVIEW</div><h1 data-i18n="dashboard">Dashboard</h1><p data-i18n="dashboardIntro">Your money at a glance.</p></div><a class="btn btn-primary" href="{% url 'transfer' %}">➚ <span data-i18n="transfer">Send money</span></a></div><div class="dashboard-grid"><section class="balance-card"><div class="balance-label" data-i18n="totalBalance">TOTAL BALANCE</div><div class="balance-number">{{ wallet.balance }} <span class="demo-tag">DEMO</span></div><div class="balance-caption" data-i18n="sampleBalance">Sample balance — not linked to an account</div><div class="balance-pattern">✦</div></section><section class="metric-card"><div class="metric-icon">↗</div><p data-i18n="moneyIn">Money in</p><strong>$ 270.00</strong><small data-i18n="sampleData">Sample data</small></section><section class="metric-card"><div class="metric-icon mint">↘</div><p data-i18n="moneyOut">Money out</p><strong>$ 36.50</strong><small data-i18n="sampleData">Sample data</small></section></div><div class="panel"><div class="panel-head"><div><h2 data-i18n="recentTransactions">Recent transactions</h2><p data-i18n="activityIntro">A quick look at your activity.</p></div><a href="{% url 'transactions' %}" data-i18n="viewAll">View all ↗</a></div><div class="tx-list">{% for tx in transactions %}<div class="tx-row"><div class="tx-icon {% if tx.kind == 'in' %}incoming{% endif %}">{% if tx.kind == 'in' %}↙{% else %}↗{% endif %}</div><div class="tx-description"><strong>{{ tx.name }}</strong><span>{{ tx.date }}</span></div><span class="tx-status">{{ tx.status }}</span><strong class="tx-amount {% if tx.kind == 'in' %}positive{% endif %}">{{ tx.amount }}</strong></div>{% endfor %}</div></div>{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <div>
+        <div class="eyebrow" data-i18n="overview">OVERVIEW</div>
+        <h1 data-i18n="dashboard">Dashboard</h1>
+        <p data-i18n="dashboardIntro">Your money at a glance.</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'transfer' %}">➚ <span data-i18n="transfer">Send money</span></a>
+</div>
+<div class="dashboard-grid">
+    <section class="balance-card">
+        <div class="balance-label" data-i18n="totalBalance">TOTAL BALANCE</div>
+        <div class="balance-number">${{ wallet.balance }}</div>
+        <div class="balance-caption" data-i18n="sampleBalance">Live account balance</div>
+        <div class="balance-pattern">✦</div>
+    </section>
+    <section class="metric-card">
+        <div class="metric-icon">↗</div>
+        <p data-i18n="moneyIn">Money in</p>
+        <strong>${{ money_in }}</strong>
+        <small data-i18n="sampleData">Real data</small>
+    </section>
+    <section class="metric-card">
+        <div class="metric-icon mint">↘</div>
+        <p data-i18n="moneyOut">Money out</p>
+        <strong>${{ money_out }}</strong>
+        <small data-i18n="sampleData">Real data</small>
+    </section>
+</div>
+<div class="panel">
+    <div class="panel-head">
+        <div>
+            <h2 data-i18n="recentTransactions">Recent transactions</h2>
+            <p data-i18n="activityIntro">A quick look at your activity.</p>
+        </div>
+        <a href="{% url 'transactions' %}" data-i18n="viewAll">View all ↗</a>
+    </div>
+    <div class="tx-list">
+        {% for tx in transactions %}
+        <div class="tx-row">
+            <div class="tx-icon {% if tx.kind == 'in' %}incoming{% endif %}">{% if tx.kind == 'in' %}↙{% else %}↗{% endif %}</div>
+            <div class="tx-description">
+                <strong>{{ tx.name }}</strong>
+                <span>{{ tx.date }}</span>
+            </div>
+            <span class="tx-status">{{ tx.status }}</span>
+            <strong class="tx-amount {% if tx.kind == 'in' %}positive{% endif %}">{{ tx.amount }}</strong>
+        </div>
+        {% empty %}
+        <div class="notice">No recent transactions yet.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
