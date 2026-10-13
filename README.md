@@ -1,38 +1,38 @@
 # FinCore — Secure Django Digital Wallet & Ledger
 
-FinCore is a robust, production-grade Django digital wallet web application featuring an append-only, double-entry financial ledger and secure wallet-to-wallet transfers. Designed as a demonstration and portfolio project.
+FinCore is a backend portfolio and demonstration project built with Django, featuring an append-only, double-entry financial ledger and secure wallet-to-wallet transfers.
 
 ## Project Overview
-FinCore implements secure ledger-backed accounting. It ensures every transaction is fully balanced, immutable, and resistant to race conditions or silent divergence between account balances and ledger entries.
+FinCore demonstrates reliable financial accounting fundamentals within a simulated digital wallet environment. It is intended strictly for portfolio display and developer demonstration purposes, not for live banking or production financial operations.
 
 ## Key Backend Features
-- **Double-Entry Ledger:** Append-only ledger supporting LedgerAccount, LedgerTransaction, and LedgerEntry models.
-- **Atomic Transfers:** Wallet updates and ledger postings execute within a single atomic database transaction.
-- **Idempotency Enforcement:** Database-level uniqueness constraints on idempotency keys to prevent duplicate transaction processing.
-- **Strict Validation:** Comprehensive validation preventing negative balances, self-transfers, currency mismatches, and unauthorized access.
+- **Double-Entry Ledger:** Append-only ledger structure comprising `LedgerAccount`, `LedgerTransaction`, and `LedgerEntry` models.
+- **Atomic Transfers:** Wallet balance updates and ledger postings are executed within an atomic database transaction.
+- **Idempotency Enforcement:** Database-level uniqueness constraints on transaction idempotency keys.
+- **Strict Validation:** Guards against negative balances, self-transfers, and currency mismatches.
 
 ## Technology Stack
-- **Backend:** Python 3.14, Django 5.1
-- **Database:** SQLite (default for development), PostgreSQL-ready
-- **Frontend:** Server-rendered Django templates with modern responsive CSS
+- **Backend:** Python 3.14, Django 6.1
+- **Database:** SQLite (default development database)
+- **Frontend:** Server-rendered Django templates with responsive CSS
 
 ## Project Architecture
 ```
 fincore-django/
 ├── apps/
-│   ├── accounts/     # User auth & profile management
-│   ├── core/         # Landing and core views
-│   ├── transactions/ # Double-entry ledger, transfer service & views
+│   ├── accounts/     # User authentication & registration
+│   ├── core/         # Core application views and home
+│   ├── transactions/ # Double-entry ledger models, services & views
 │   └── wallets/      # Wallet models & dashboard views
 ├── config/           # Django settings, URLs, WSGI/ASGI
-├── templates/        # HTML templates matching FinCore design specs
+├── templates/        # HTML templates matching the FinCore design
 └── tests/            # Automated test suite
 ```
 
 ## Installation and Setup Instructions
 1. Clone the repository:
    ```bash
-   git clone https://github.com/username/fincore-django.git
+   git clone https://github.com/mohammadrezaxp/fincore-django.git
    cd fincore-django
    ```
 2. Create and activate a virtual environment:
@@ -54,29 +54,29 @@ fincore-django/
    ```
 
 ## Database Migrations
-To apply migrations and verify the database schema:
+Verify migration consistency:
 ```bash
 python manage.py makemigrations --check --dry-run
 python manage.py migrate
 ```
 
 ## How to Run Tests
-Execute the full automated test suite with verbosity:
+Run the automated test suite:
 ```bash
 python manage.py test -v 2
 ```
 
 ## Security Measures
-- **CSRF Protection:** Enabled globally on all POST forms.
-- **Authentication Required:** Protected endpoints enforce login.
-- **Object-Level Authorization:** Users can only view their own wallets and transaction history.
-- **Decimal Precision:** Strict usage of `Decimal` fields to prevent floating-point rounding errors in financial computations.
+- **CSRF Protection:** Enabled across all form endpoints.
+- **Authentication:** Login required for all wallet and transfer views.
+- **Object Authorization:** Users can only access their own wallets and transfer histories.
+- **Decimal Precision:** Uses `Decimal` for all monetary amounts to avoid float rounding errors.
 
 ## Known Limitations
-- **SQLite Concurrency:** SQLite does not support true row-level locking via `select_for_update()`. For high-throughput concurrent environments, PostgreSQL is strongly recommended.
+- **SQLite Concurrency:** SQLite does not support true row-level locking via `select_for_update()`. For high-concurrency environments, PostgreSQL or MySQL with proper row locking is required.
 
 ## Screenshots
-*(Placeholders for application dashboard, transfer form, and transaction history screenshots)*
+*(Insert application screenshots here)*
 
 ## Disclaimer
-FinCore is a simulation and portfolio project. It does not integrate with real banking systems, payment gateways, or live financial networks.
+FinCore is a demonstration project and does not connect to real banking systems, payment gateways, or live financial networks.
